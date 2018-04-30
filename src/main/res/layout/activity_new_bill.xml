@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.iamartem.billmanager.NewBill"
+    tools:layout_editor_absoluteY="89dp">
+
+
+    <Button
+        android:id="@+id/bill_new_done"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="104dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/done"
+        android:onClick="newBill"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/bill_new_cancel"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/cancel"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bill_new_done"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bill_notes"
+        app:layout_constraintVertical_bias="0.6"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/new_info_tx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/enter_new_bill_information"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.00999999" />
+
+    <EditText
+        android:id="@+id/bill_name"
+        android:layout_width="584dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/payee"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/bill_amt_due"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread">
+    </EditText>
+
+    <EditText
+        android:id="@+id/bill_amt_due"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/amount_due"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/bill_amt_paid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bill_name" />
+
+    <EditText
+        android:id="@+id/bill_amt_paid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/amount_paid"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/bill_due_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bill_amt_due" />
+
+    <EditText
+        android:id="@+id/bill_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/bill_type"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/bill_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bill_due_date" />
+
+    <EditText
+        android:id="@+id/bill_notes"
+        android:layout_width="584dp"
+        android:layout_height="97dp"
+        android:layout_marginBottom="104dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/notes"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/bill_new_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/bill_due_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="@string/due_date"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/bill_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bill_amt_paid" />
+
+</android.support.constraint.ConstraintLayout>
+
