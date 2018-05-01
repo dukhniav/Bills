@@ -24,15 +24,13 @@ class NewBill : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_bill)
 
-
-
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setDisplayShowHomeEnabled(true)
         }
 
         val backButton = supportActionBar
-        backButton!!.title = "NewBill"
+        backButton!!.title = "New Bill"
 
         bill_new_cancel.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
@@ -51,7 +49,6 @@ class NewBill : AppCompatActivity() {
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView()
-
             }
         }
 
@@ -109,25 +106,6 @@ class NewBill : AppCompatActivity() {
             Toast.makeText(this, "New bill added", Toast.LENGTH_LONG).show()
         }
     }
-
-//    fun lookupBill(view: View) {
-//        val dbHandler= MyDBHandler(this, null, null, 1)
-//        val bill = dbHandler.getBills(.text.toString())
-//        if (bill != null) {
-//
-//        }
-//    }
-
-//    fun removeProduct(view:View) {
-//        val dbHandler = MyDBHandler(this, null, null, 1)
-//        val result = dbHandler.deleteProduct(productName.text.toString())
-//        if (result) {
-//            productID.setText(R.string.deleted)
-//            productName.setText("")
-//            productQuantity.setText("")
-//        } else
-//            productID.setText(R.string.no_match)
-//    }
 
     private fun updateDateInView() {
         val myFormat = "MM/dd/yyyy"

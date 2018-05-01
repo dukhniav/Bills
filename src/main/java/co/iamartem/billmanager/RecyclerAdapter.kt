@@ -4,33 +4,25 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
-class RecyclerAdapter(val bills: ArrayList<Bill>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-
-
-    
+class RecyclerAdapter(val bills : List<Bill>) : RecyclerView.Adapter<RecyclerHolder>(){
     override fun getItemCount() = bills.size
-    
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
-        val cellRow: View = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item_row, parent, false)
-        return ViewHolder(cellRow)
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerHolder{
+        val layoutInflater = LayoutInflater.from(parent?.context)
+        val cellRow = layoutInflater.inflate(R.layout.recyclerview_item_row, parent, false)
+
+        return RecyclerHolder(cellRow)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerHolder, position: Int) {
         val bill = bills.get(position)
 
-        holder.company.text = bills[position].company
-        holder.amt_due.text = bills[position].amtDue.toString()
-        holder.due_date.text = bills[position].dueDate
-//        holder.view.r_amt_due?.text = bill.amtDue.toString()
-//        holder.view.r_due_date?.text = bill.dueDate
-    }
-
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val company : TextView = itemView.findViewById(R.id.r_bill_name)
-        val amt_due : TextView = itemView.findViewById(R.id.r_amt_due)
-        val due_date : TextView = itemView.findViewById(R.id.r_due_date)
+        holder.view.r_bill_name.text = bill.company
+        holder.view.r_amt_due?.text = ("Amount Due: $ ${bill.amtDue.toString()}")
+        holder.view.r_due_date?.text = ("Date Due: ${bill.dueDate}")
     }
 }
+
+class RecyclerHolder(val view : View) : RecyclerView.ViewHolder(view) {}

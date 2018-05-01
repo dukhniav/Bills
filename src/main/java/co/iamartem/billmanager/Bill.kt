@@ -13,13 +13,6 @@ class Bill {
     var billType: String? = ""
     var notes: String? = ""
 
-    constructor(id: Int, company: String, amtDue: Double, dueDate: String){
-        this.id = id
-        this.company = company
-        this.amtDue = amtDue
-        this.dueDate = dueDate
-    }
-
     constructor(id: Int, company: String, amtDue: Double, amtPaid: Double,
                 dueDate: String, billType: String, notes: String){
         this.id = id
@@ -40,9 +33,4 @@ class Bill {
         this.billType = billType
         this.notes = notes
     }
-
-    constructor()
-
-
-
 }

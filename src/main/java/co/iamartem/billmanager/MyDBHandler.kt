@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import java.lang.Double.parseDouble
 import kotlin.collections.ArrayList
 
@@ -15,10 +16,6 @@ import kotlin.collections.ArrayList
 class MyDBHandler(context: Context, company: String?,
                   factory: SQLiteDatabase.CursorFactory?, version: Int) :
                         SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
-
-
-
-
 
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -44,52 +41,36 @@ class MyDBHandler(context: Context, company: String?,
 
         db.insert(TABLE_BILLS, null, values)
         db.close()
+        Log.v("Tag", " Record Inserted Sucessfully")
     }
 
-    fun getAllBills(): ArrayList<Bill> {
-        //var billList : ArrayList<Bill> = ArrayList()
-        val cursor : Cursor = this.writableDatabase.query(TABLE_BILLS, arrayOf(COLUMN_ID,
-                COLUMN_BILLNAME, COLUMN_AMTDUE, COLUMN_AMTPAID, COLUMN_DUEDATE, COLUMN_BILLTYPE, COLUMN_NOTES),
-                null, null, null, null, null)
+    fun getAllBills(): List<Bill> {
+            val db = this.writableDatabase
 
-        //val cursor = db.rawQuery(query, null)
+            val list = ArrayList<Bill>()
+            val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_BILLS", null)
 
-        //val db = this.writableDatabase
-        //val query = "SELECT  * FROM $TABLE_BILLS"
-
-
-        if (cursor.moveToFirst()) {
-            //cursor.moveToFirst()
-
-            do  {
-                //val bills = Bill()
-                var bill = Bill()//id, company, amtDue, amtPaid, dueDate, billType, notes)
-
-                //                bills.id =       Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_ID)))
-                //                bills.company =  cursor.getString(cursor.getColumnIndex(COLUMN_BILLNAME))
-                //                bills.amtDue =   parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTDUE)))
-                //                bills.amtPaid =  parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTPAID)))
-                //                bills.dueDate =  cursor.getString(cursor.getColumnIndex(COLUMN_DUEDATE))
-                //                bills.billType = cursor.getString(cursor.getColumnIndex(COLUMN_BILLTYPE))
-                //                bills.notes =    cursor.getString(cursor.getColumnIndex(COLUMN_NOTES))
-
-                bill.id = Integer.parseInt(cursor.getString(0))
-                bill.company = cursor.getString(1)
-                bill.amtDue = parseDouble(cursor.getString(2))
-                bill.amtPaid = parseDouble(cursor.getString(3))
-                bill.dueDate = cursor.getString(4)
-                bill.billType = cursor.getString(5)
-                bill.notes = cursor.getString(6)
-                //billList.add(bills)
-
-                billList.add(bill)
-            } while (cursor.moveToNext())
-        }
-
+            if (cursor != null) {
+                if (cursor.count > 0) {
+                    cursor.moveToFirst()
+                    do {
+                        val billID = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                        val billCompany = cursor.getString(cursor.getColumnIndex(COLUMN_BILLNAME))
+                        val billDue = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTDUE)))
+                        val billPaid = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTPAID)))
+                        val billDate = cursor.getString(cursor.getColumnIndex(COLUMN_DUEDATE))
+                        val billType = cursor.getString(cursor.getColumnIndex(COLUMN_BILLTYPE))
+                        val billNotes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES))
+                        val bill = Bill(billID, billCompany, billDue, billPaid, billDate, billType, billNotes)
+                        list.add(bill)
+                    } while (cursor.moveToNext())
+                }
+            }
         cursor.close()
-        //db.close()
-        return billList
+        return list
     }
+
+
 
     fun deleteBill(_id : Int): Boolean {
         var result = false
@@ -110,15 +91,6 @@ class MyDBHandler(context: Context, company: String?,
     }
 
     companion object {
-        private var instance : MyDBHandler? = null
-
-        fun getInstance(context: Context) : MyDBHandler {
-            if (instance == null) {
-                instance = MyDBHandler(context, DATABASE_NAME, null, DATABASE_VERSION)
-            }
-            return instance!!
-        }
-
         private val DATABASE_VERSION = 1
         private val DATABASE_NAME = "billsDB.db"
         val TABLE_BILLS = "bills"
@@ -131,12 +103,6 @@ class MyDBHandler(context: Context, company: String?,
         val COLUMN_BILLTYPE = "db_billtype"
         val COLUMN_NOTES = "db_notes"
 
-        val ADD = "add"
-        val WHAT = "what"
-        val UPDATE = "update"
-
-        var billList : ArrayList<Bill> = ArrayList()
-
         // Create
         val CREATE_BILLS_TABLE = ("CREATE TABLE "
                 + TABLE_BILLS + "("
@@ -147,8 +113,6 @@ class MyDBHandler(context: Context, company: String?,
                 + COLUMN_DUEDATE + " TEXT, "
                 + COLUMN_BILLTYPE + " TEXT, "
                 + COLUMN_NOTES + " TEXT" + ")")
-
-
     }
 
 }

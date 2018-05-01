@@ -13,5 +13,7 @@
     <string name="cancel">Cancel</string>
     <string name="nothing_to_show">Nothing To Show...Yet</string>
     <string name="enter_new_bill_information">Enter New Bill Information:</string>
+    <string name="company">Company</string>
+    <string name="todo">TODO</string>
 
 </resources>
