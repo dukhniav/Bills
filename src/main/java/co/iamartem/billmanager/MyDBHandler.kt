@@ -44,11 +44,10 @@ class MyDBHandler(context: Context, company: String?,
         Log.v("Tag", " Record Inserted Sucessfully")
     }
 
-    fun getAllBills(): List<Bill> {
+    fun getAllUnpaidBills(): List<Bill> {
             val db = this.writableDatabase
-
             val list = ArrayList<Bill>()
-            val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_BILLS", null)
+            val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_BILLS WHERE $COLUMN_AMTPAID < $COLUMN_AMTDUE", null)
 
             if (cursor != null) {
                 if (cursor.count > 0) {
@@ -70,6 +69,30 @@ class MyDBHandler(context: Context, company: String?,
         return list
     }
 
+    fun getAllPaidBills(): List<Bill> {
+        val db = this.writableDatabase
+        val list = ArrayList<Bill>()
+        val cursor: Cursor = db.rawQuery("SELECT * FROM $TABLE_BILLS WHERE $COLUMN_AMTPAID >= $COLUMN_AMTDUE", null)
+
+        if (cursor != null) {
+            if (cursor.count > 0) {
+                cursor.moveToFirst()
+                do {
+                    val billID = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                    val billCompany = cursor.getString(cursor.getColumnIndex(COLUMN_BILLNAME))
+                    val billDue = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTDUE)))
+                    val billPaid = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTPAID)))
+                    val billDate = cursor.getString(cursor.getColumnIndex(COLUMN_DUEDATE))
+                    val billType = cursor.getString(cursor.getColumnIndex(COLUMN_BILLTYPE))
+                    val billNotes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES))
+                    val bill = Bill(billID, billCompany, billDue, billPaid, billDate, billType, billNotes)
+                    list.add(bill)
+                } while (cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        return list
+    }
 
 
     fun deleteBill(_id : Int): Boolean {

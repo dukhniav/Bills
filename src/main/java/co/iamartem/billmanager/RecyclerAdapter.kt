@@ -1,5 +1,6 @@
 package co.iamartem.billmanager
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,12 @@ class RecyclerAdapter(val bills : List<Bill>) : RecyclerView.Adapter<RecyclerHol
         val bill = bills.get(position)
 
         holder.view.r_bill_name.text = bill.company
-        holder.view.r_amt_due?.text = ("Amount Due: $ ${bill.amtDue.toString()}")
+        if (bill.amtPaid >= bill.amtDue) {
+            holder.view.r_amt_due?.text = ("Paid")
+            holder.view.r_amt_due.setTextColor(Color.GREEN)
+        } else {
+            holder.view.r_amt_due?.text = ("Amount Due: $ ${bill.amtDue.toString()}")
+        }
         holder.view.r_due_date?.text = ("Date Due: ${bill.dueDate}")
     }
 }

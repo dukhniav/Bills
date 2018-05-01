@@ -6,9 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import co.iamartem.billmanager.R.id.*
 import android.support.v7.widget.RecyclerView
-import android.widget.EditText
 
 /**
  * Created by dukhnia on 4/30/18.
@@ -16,10 +14,7 @@ import android.widget.EditText
 
 
 class ViewCurrentBills : Fragment() {
-
-    //private var view : View? = null
     private var recyclerView : RecyclerView? = null
-    private var emptyText : EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +26,7 @@ class ViewCurrentBills : Fragment() {
 
         // Database for recycler view
         val dbHandler = MyDBHandler(activity, null, null, 1)
-        val bills : List<Bill> = dbHandler.getAllBills()
+        val bills : List<Bill> = dbHandler.getAllUnpaidBills()
 
         recyclerView!!.adapter = RecyclerAdapter(bills)
         recyclerView!!.layoutManager = LinearLayoutManager(activity)

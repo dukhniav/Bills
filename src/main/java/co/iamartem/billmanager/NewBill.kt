@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_new_bill.*
 import java.lang.Double.parseDouble
 import java.text.SimpleDateFormat
@@ -32,10 +33,10 @@ class NewBill : AppCompatActivity() {
         val backButton = supportActionBar
         backButton!!.title = "New Bill"
 
-        bill_new_cancel.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+//        bill_new_cancel.setOnClickListener{
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
 
 //        new_done.setOnClickListener{
 //            Toast.makeText(this, "Functionality not part of assignment :)", Toast.LENGTH_LONG).show()
@@ -62,10 +63,21 @@ class NewBill : AppCompatActivity() {
             }
         })
 
+
+        // Database for recycler view
+        val dbHandler = MyDBHandler(this, null, null, 1)
+        //val bill : List<Bill> = dbHandler.getAllUnpaidBills()
+
+
+        bill_new_done.setOnClickListener{
+            newBill()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent);
+        }
     }
 
     @SuppressLint("SetTextI18n")
-    fun newBill(view: View) {
+    fun newBill() {
         val dbHandler = MyDBHandler(this, null, null, 1)
 
         if (TextUtils.isEmpty(bill_name.text.toString())) {
