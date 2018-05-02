@@ -10,6 +10,7 @@
     <string name="amount_paid">Amount Paid</string>
     <string name="notes">Notes</string>
     <string name="done">Done</string>
+    <string name="update">Update</string>
     <string name="cancel">Cancel</string>
     <string name="unpaid_nothing_to_show">Add a bill to see it here</string>
     <string name="paid_nothing_to_show">Pay a bill to see it here</string>

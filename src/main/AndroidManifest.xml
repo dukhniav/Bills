@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewBill" />
-        <activity android:name=".ViewBills">
+        <activity android:name=".UpdateBill">
 
         </activity>
 

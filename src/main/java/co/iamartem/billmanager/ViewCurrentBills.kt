@@ -1,5 +1,6 @@
 package co.iamartem.billmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v7.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.recyclerview_item_row.*
 
 /**
  * Created by dukhnia on 4/30/18.
@@ -18,6 +21,8 @@ class ViewCurrentBills : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,6 +41,7 @@ class ViewCurrentBills : Fragment() {
         if (bills.size > 0) {
             view.findViewById<android.view.View>(co.iamartem.billmanager.R.id.bill_view_nothing_show).visibility = View.INVISIBLE
         }
+
 
         return view
     }

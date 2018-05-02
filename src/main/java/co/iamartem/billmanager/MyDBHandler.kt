@@ -1,5 +1,6 @@
 package co.iamartem.billmanager
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -40,6 +41,25 @@ class MyDBHandler(context: Context, company: String?,
         val db = this.writableDatabase
 
         db.insert(TABLE_BILLS, null, values)
+        db.close()
+        Log.v("Tag", " Record Inserted Sucessfully")
+    }
+
+    fun updateBill(bill: Bill) {
+        val query = ("UPDATE $TABLE_BILLS " +
+                " SET $COLUMN_BILLNAME = ${bill.company} " +
+                " SET $COLUMN_AMTDUE = ${bill.amtDue} " +
+                " SET ${COLUMN_AMTPAID} = ${bill.amtPaid} " +
+                " SET $COLUMN_DUEDATE = ${bill.dueDate} " +
+                " SET $COLUMN_BILLTYPE = ${bill.billType} " +
+                " SET $COLUMN_NOTES = ${bill.notes} " +
+                " WHERE " +
+                "   $COLUMN_ID = ${bill.id} ")
+
+        val db = this.writableDatabase
+
+        db.rawQuery(query, null)
+        //db.insert(TABLE_BILLS, null, values)
         db.close()
         Log.v("Tag", " Record Inserted Sucessfully")
     }
@@ -94,6 +114,32 @@ class MyDBHandler(context: Context, company: String?,
         return list
     }
 
+    fun findBill(id : String)  : Bill? {
+        Log.i("Tag","-------------------          -- - - ===++++ $id")
+        val query = (" Select * FROM $TABLE_BILLS WHERE $id = $COLUMN_ID ")
+
+        Log.i("Tag","-------------------          -- - - ===++++ before database")
+
+        val db = this.writableDatabase
+
+        val cursor = db.rawQuery(query, null)
+        var bill: Bill? = null
+
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst()
+                val billID = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                val billCompany = cursor.getString(cursor.getColumnIndex(COLUMN_BILLNAME))
+                val billDue = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTDUE)))
+                val billPaid = parseDouble(cursor.getString(cursor.getColumnIndex(COLUMN_AMTPAID)))
+                val billDate = cursor.getString(cursor.getColumnIndex(COLUMN_DUEDATE))
+                val billType = cursor.getString(cursor.getColumnIndex(COLUMN_BILLTYPE))
+                val billNotes = cursor.getString(cursor.getColumnIndex(COLUMN_NOTES))
+                bill = Bill(billID, billCompany, billDue, billPaid, billDate, billType, billNotes)
+        }
+
+        this.writableDatabase.close()
+        return bill
+    }
 
     fun deleteBill(_id : Int): Boolean {
         var result = false

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         // New Bill
         add_new_bill.setOnClickListener{
             val intent = Intent(this, NewBill::class.java)
-            startActivity(intent);
+            startActivity(intent)
         }
 
     }
